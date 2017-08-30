@@ -119,6 +119,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\3rdParty\curl\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -182,6 +183,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\lib\local\FaceAnalyser\FaceAnalyser.vcxproj">
       <Project>{0e7fc556-0e80-45ea-a876-dde4c2fedcd7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\local\FileDownloader\FileDownloader.vcxproj">
+      <Project>{cb4b8d13-ecd5-4cf4-b3a4-6e39924d5dc0}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\lib\local\GazeAnalyser\GazeAnalyser.vcxproj">
       <Project>{5f915541-f531-434f-9c81-79f5db58012b}</Project>

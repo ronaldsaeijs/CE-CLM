@@ -59,10 +59,17 @@
 #include "stdafx.h"
 
 #include "Patch_experts.h"
+#include "Patch_download.h"
+#include "File_download.h"
 
 // OpenCV includes
 #include <opencv2/core/core_c.h>
 #include <opencv2/imgproc/imgproc_c.h>
+
+#include <boost/filesystem.hpp>
+
+// cURL includes (for downloading patch files)
+#include <curl/curl.h>
 
 // TBB includes
 #include <tbb/tbb.h>
@@ -398,9 +405,26 @@ void Patch_experts::Read(vector<string> intensity_svr_expert_locations, vector<s
 
 	for (int scale = 0; scale < num_intensity_cen; ++scale)
 	{
+		string url;
+		ifstream url_file("model/cen_general_url_folder.txt");
+		//ifstream url_file("model/cen_general_urls.txt");
+		if (url_file) {
+			url_file >> url;
+			cout << url << '\n';
+			url_file.close();
+		}
+		/*
+		if (url_file) {
+			for (int i = 0; i < 4; i++) {
+				url_file >> urls[i];
+			}
+			url_file.close();
+		}
+		*/
+
 		string location = intensity_cen_expert_locations[scale];
 		cout << "Reading the intensity CEN patch experts from: " << location << "....";
-		Read_CEN_patch_experts(location, centers[scale], visibilities[scale], cen_expert_intensity[scale], patch_scaling[scale]);
+		Read_CEN_patch_experts(location, centers[scale], visibilities[scale], cen_expert_intensity[scale], patch_scaling[scale], url);
 	}
 
 	// initialise the SVR depth patch expert parameters
@@ -635,10 +659,32 @@ void Patch_experts::Read_CCNF_patch_experts(string patchesFileLocation, std::vec
 }
 
 //======================= Reading the CEN patch experts =========================================//
-void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<cv::Vec3d>& centers, std::vector<cv::Mat_<int> >& visibility, std::vector<std::vector<CEN_patch_expert> >& patches, double& scale)
+void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<cv::Vec3d>& centers, std::vector<cv::Mat_<int> >& visibility, std::vector<std::vector<CEN_patch_expert> >& patches, double& scale, string expert_url)
 {
 
 	ifstream patchesFile(expert_location.c_str(), ios::in | ios::binary);
+
+	// TODO: save URLs to patchesFile
+	// TODO: allow user to enter url folder containing patch files as argument
+	// TODO: read patch names from a file
+	if (!patchesFile.is_open()) {
+		cout << "Can't find/open the patches file at " << expert_location << '\n';
+
+		// offer option to download patch
+		// build url
+		//boost::filesystem::path patch_file = boost::filesystem::path(expert_location).filename();
+		//boost::filesystem::path url = boost::filesystem::path(expert_url).concat(patch_file);
+
+		string url = expert_url + boost::filesystem::path(expert_location).filename().string();
+		cout << "Do you want to download the file from " << url << "? [Y\\n]\n";
+		char chr;
+		cin >> chr;
+		if (chr == 'Y') {
+			Download_file(url.c_str(), expert_location.c_str(), false);
+			cout << "Saved patches file to " << expert_location << "\n";
+		}
+		patchesFile.open(expert_location.c_str(), ios::in | ios::binary);
+	}
 
 	if (patchesFile.is_open())
 	{
@@ -681,9 +727,22 @@ void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<c
 			}
 		}
 		cout << "Done" << endl;
+		patchesFile.close();
 	}
 	else
 	{
-		cout << "Can't find/open the patches file" << endl;
+		cout << "Can't find/open the patches file " << expert_location << '\n';
+		
+		/*
+		// offer option to download patch
+		cout << "Do you want to download the files from <URL>? [Y\\n]\n";
+		char chr;
+		cin >> chr;
+		if (chr == 'Y') {
+			//Download_patch_experts();
+			Download_file("http://www.cs.cmu.edu/~213/assignments.html", expert_location.c_str(), false);
+			cout << "Saved patches file to " << expert_location << "\n";
+		}
+		*/
 	}
 }
