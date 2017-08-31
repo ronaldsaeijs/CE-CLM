@@ -107,6 +107,14 @@ FaceModelParameters::FaceModelParameters(vector<string> &arguments)
 			i++;
 
 		}
+		else if (arguments[i].compare("-murl") == 0)
+		{
+			string url = arguments[i + 1];
+			model_url = url;
+			valid[i] = false;
+			valid[i + 1] = false;
+		}
+		// else if?
 		if (arguments[i].compare("-sigma") == 0)
 		{
 			stringstream data(arguments[i + 1]);
@@ -271,6 +279,7 @@ void FaceModelParameters::init()
 	window_sizes_current = window_sizes_init;
 
 	model_location = "model/main_ceclm_general.txt";
+	model_url = "sorena.multicomp.cs.cmu.edu/cen_patches/";
 
 	sigma = 1.5;
 	reg_factor = 25;

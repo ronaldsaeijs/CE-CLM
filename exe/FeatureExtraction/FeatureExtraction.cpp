@@ -295,7 +295,7 @@ int main(int argc, char **argv)
 	LandmarkDetector::FaceModelParameters det_parameters(arguments);
 	// Always track gaze in feature extraction
 	det_parameters.track_gaze = true;
-	LandmarkDetector::CLNF face_model(det_parameters.model_location);
+	LandmarkDetector::CLNF face_model(det_parameters.model_location, det_parameters.model_url);
 
 	// Load facial feature extractor and AU analyser
 	FaceAnalysis::FaceAnalyserParameters face_analysis_params(arguments);

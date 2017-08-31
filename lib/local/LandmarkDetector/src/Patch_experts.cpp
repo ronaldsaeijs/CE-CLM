@@ -59,7 +59,6 @@
 #include "stdafx.h"
 
 #include "Patch_experts.h"
-#include "Patch_download.h"
 #include "File_download.h"
 
 // OpenCV includes
@@ -353,7 +352,7 @@ int Patch_experts::GetViewIdx(const cv::Vec6d& params_global, int scale) const
 
 
 //===========================================================================
-void Patch_experts::Read(vector<string> intensity_svr_expert_locations, vector<string> depth_svr_expert_locations, vector<string> intensity_ccnf_expert_locations, vector<string> intensity_cen_expert_locations, string early_term_loc)
+void Patch_experts::Read(vector<string> intensity_svr_expert_locations, vector<string> depth_svr_expert_locations, vector<string> intensity_ccnf_expert_locations, vector<string> intensity_cen_expert_locations, string early_term_loc, string url)
 {
 
 	// initialise the SVR intensity patch expert parameters
@@ -405,19 +404,12 @@ void Patch_experts::Read(vector<string> intensity_svr_expert_locations, vector<s
 
 	for (int scale = 0; scale < num_intensity_cen; ++scale)
 	{
+		/*
 		string url;
 		ifstream url_file("model/cen_general_url_folder.txt");
-		//ifstream url_file("model/cen_general_urls.txt");
 		if (url_file) {
 			url_file >> url;
 			cout << url << '\n';
-			url_file.close();
-		}
-		/*
-		if (url_file) {
-			for (int i = 0; i < 4; i++) {
-				url_file >> urls[i];
-			}
 			url_file.close();
 		}
 		*/

@@ -80,13 +80,13 @@ using namespace LandmarkDetector;
 CLNF::CLNF()
 {
 	FaceModelParameters parameters;
-	this->Read(parameters.model_location);
+	this->Read(parameters.model_location, parameters.model_url);
 }
 
 // Constructor from a model file
-CLNF::CLNF(string fname)
+CLNF::CLNF(string fname, string furl)
 {
-	this->Read(fname);
+	this->Read(fname, furl);
 }
 
 // Copy constructor (makes a deep copy of CLNF)
@@ -252,7 +252,7 @@ CLNF & CLNF::operator= (const CLNF&& other)
 }
 
 
-void CLNF::Read_CLNF(string clnf_location)
+void CLNF::Read_CLNF(string clnf_location, string clnf_url)
 {
 	// Location of modules
 	ifstream locations(clnf_location.c_str(), ios_base::in);
@@ -353,14 +353,14 @@ void CLNF::Read_CLNF(string clnf_location)
 	} 
   
 	// Initialise the patch experts
-	patch_experts.Read(intensity_expert_locations, depth_expert_locations, ccnf_expert_locations, cen_expert_locations, early_term_loc);
+	patch_experts.Read(intensity_expert_locations, depth_expert_locations, ccnf_expert_locations, cen_expert_locations, early_term_loc, clnf_url);
 
 	// Read in a face detector
 	face_detector_HOG = dlib::get_frontal_face_detector();
 
 }
 
-void CLNF::Read(string main_location)
+void CLNF::Read(string main_location, string main_url)
 {
 
 	cout << "Reading the landmark detector/tracker from: " << main_location << endl;
@@ -408,7 +408,7 @@ void CLNF::Read(string main_location)
 			cout << "Reading the landmark detector module from: " << location << endl;
 
 			// The CLNF module includes the PDM and the patch experts
-			Read_CLNF(location);
+			Read_CLNF(location, main_url);
 		}
 		else if(module.compare("LandmarkDetector_part") == 0)
 		{

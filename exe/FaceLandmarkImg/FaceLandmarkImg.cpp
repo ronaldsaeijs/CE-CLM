@@ -331,7 +331,7 @@ int main(int argc, char **argv)
 
 	// The modules that are being used for tracking
 	cout << "Loading the model" << endl;
-	LandmarkDetector::CLNF clnf_model(det_parameters.model_location);
+	LandmarkDetector::CLNF clnf_model(det_parameters.model_location, det_parameters.model_url);
 	cout << "Model loaded" << endl;
 
 	cv::CascadeClassifier classifier(det_parameters.face_detector_location);

@@ -172,7 +172,7 @@ int main(int argc, char **argv)
 	LandmarkDetector::get_video_input_output_params(files, depth_directories, out_dummy, output_video_files, output_codec, arguments);
 
 	// The modules that are being used for tracking
-	LandmarkDetector::CLNF clnf_model(det_parameters.model_location);
+	LandmarkDetector::CLNF clnf_model(det_parameters.model_location, det_parameters.model_url);
 
 	// Grab camera parameters, if they are not defined (approximate values will be used)
 	float fx = 0, fy = 0, cx = 0, cy = 0;

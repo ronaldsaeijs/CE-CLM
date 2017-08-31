@@ -97,6 +97,9 @@ struct FaceModelParameters
 
 	// Where to load the model from
 	string model_location;
+
+	// Where to download the model files from (if the model is not found locally)
+	string model_url;
 	
 	// this is used for the smooting of response maps (KDE sigma)
 	double sigma;

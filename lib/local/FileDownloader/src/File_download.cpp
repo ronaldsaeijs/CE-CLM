@@ -32,8 +32,8 @@ void Download_file(const char *url, const char *filename, bool debug = false)
 	if (handle) {
 		char errorbuf[CURL_ERROR_SIZE];
 
-		// relative path for cert?
-		//char cert[] = "D:\\Yao Chong\\Documents\\School\\CMU\\Research\\Multi-modal\\CE-CLM\\lib\\3rdParty\\curl\\cacert.pem";
+		// TODO: make cert path relative
+		// char cert[] = "D:\\Yao Chong\\Documents\\School\\CMU\\Research\\Multi-modal\\CE-CLM\\lib\\3rdParty\\curl\\cacert.pem";
 		// char cert[] = "..\\..\\..\\3rdParty\\curl\\cacert.pem";
 		std::cout << "Downloading from " << url << "\n";
 
@@ -41,7 +41,7 @@ void Download_file(const char *url, const char *filename, bool debug = false)
 		curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, errorbuf);
 		//curl_easy_setopt(handle, CURLOPT_CAINFO, cert);
 		curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0L);
-		curl_easy_setopt(handle, CURLOPT_VERBOSE, 1L);
+		// curl_easy_setopt(handle, CURLOPT_VERBOSE, 1L);
 
 		// if successful, save data to patch_experts folder
 		std::ofstream output_file(filename, std::ios::binary | std::ios::out);

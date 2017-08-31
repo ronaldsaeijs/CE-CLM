@@ -137,7 +137,7 @@ int main(int argc, char **argv)
 
 	int num_faces_max = 4;
 
-	LandmarkDetector::CLNF clnf_model(det_parameters[0].model_location);
+	LandmarkDetector::CLNF clnf_model(det_parameters[0].model_location, det_parameters[0].model_url);
 	clnf_model.face_detector_HAAR.load(det_parameters[0].face_detector_location);
 	clnf_model.face_detector_location = det_parameters[0].face_detector_location;
 

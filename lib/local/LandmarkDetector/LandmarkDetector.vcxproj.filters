@@ -37,9 +37,6 @@
     <ClCompile Include="src\CEN_patch_expert.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patch_download.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCNF_patch_expert.h">
@@ -79,9 +76,6 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="include\CEN_patch_expert.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Patch_download.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

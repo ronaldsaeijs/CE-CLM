@@ -162,7 +162,7 @@ public:
 	CLNF();
 
 	// Constructor from a model file
-	CLNF(string fname);
+	CLNF(string fname, string furl = "");
 	
 	// Copy constructor (makes a deep copy of the detector)
 	CLNF(const CLNF& other);
@@ -196,10 +196,10 @@ public:
 	void Reset(double x, double y);
 
 	// Reading the model in
-	void Read(string name);
+	void Read(string name, string url = "");
 
 	// Helper reading function
-	void Read_CLNF(string clnf_location);
+	void Read_CLNF(string clnf_location, string clnf_url = "");
 	
 private:
 
