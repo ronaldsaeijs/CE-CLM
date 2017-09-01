@@ -665,7 +665,7 @@ void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<c
 		char chr;
 		cin >> chr;
 		if (chr == 'Y') {
-			Download_file(url.c_str(), expert_location.c_str(), false);
+			Download_file(url.c_str(), expert_location.c_str());
 			cout << "Saved patches file to " << expert_location << "\n";
 		}
 		patchesFile.open(expert_location.c_str(), ios::in | ios::binary);
