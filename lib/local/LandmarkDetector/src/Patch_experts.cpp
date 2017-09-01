@@ -656,17 +656,10 @@ void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<c
 
 	ifstream patchesFile(expert_location.c_str(), ios::in | ios::binary);
 
-	// TODO: save URLs to patchesFile
-	// TODO: allow user to enter url folder containing patch files as argument
-	// TODO: read patch names from a file
 	if (!patchesFile.is_open()) {
 		cout << "Can't find/open the patches file at " << expert_location << '\n';
 
 		// offer option to download patch
-		// build url
-		//boost::filesystem::path patch_file = boost::filesystem::path(expert_location).filename();
-		//boost::filesystem::path url = boost::filesystem::path(expert_url).concat(patch_file);
-
 		string url = expert_url + boost::filesystem::path(expert_location).filename().string();
 		cout << "Do you want to download the file from " << url << "? [Y\\n]\n";
 		char chr;
@@ -724,17 +717,5 @@ void Patch_experts::Read_CEN_patch_experts(string expert_location, std::vector<c
 	else
 	{
 		cout << "Can't find/open the patches file " << expert_location << '\n';
-		
-		/*
-		// offer option to download patch
-		cout << "Do you want to download the files from <URL>? [Y\\n]\n";
-		char chr;
-		cin >> chr;
-		if (chr == 'Y') {
-			//Download_patch_experts();
-			Download_file("http://www.cs.cmu.edu/~213/assignments.html", expert_location.c_str(), false);
-			cout << "Saved patches file to " << expert_location << "\n";
-		}
-		*/
 	}
 }

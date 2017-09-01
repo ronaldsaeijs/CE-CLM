@@ -130,7 +130,7 @@ public:
 
 	// Reading in all of the patch experts
 	void Read(vector<string> intensity_svr_expert_locations, vector<string> depth_svr_expert_locations, vector<string> intensity_ccnf_expert_locations, vector<string> intensity_cen_expert_locations,
-		string url = "", string early_term_loc = "");
+		string early_term_loc = "", string url = "");
    
 
 private:
