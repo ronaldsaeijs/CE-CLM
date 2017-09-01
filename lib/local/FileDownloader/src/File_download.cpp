@@ -13,8 +13,8 @@ static size_t write_data(char *buffer, size_t size, size_t nmemb, void *file)
 }
 
 // TODO: add argument to program to download certificate for SSL?
-// TODO: put this in a class?
-void Download_file(const char *url, const char *filename, bool debug = false)
+// necessary to put this in a class?
+void Download_file(const char *url, const char *filename)
 {
 	// For safety, ensure url and filename are null-terminated?
 
@@ -32,7 +32,6 @@ void Download_file(const char *url, const char *filename, bool debug = false)
 	if (handle) {
 		char errorbuf[CURL_ERROR_SIZE];
 
-		// TODO: make cert path relative
 		// char cert[] = "D:\\Yao Chong\\Documents\\School\\CMU\\Research\\Multi-modal\\CE-CLM\\lib\\3rdParty\\curl\\cacert.pem";
 		// char cert[] = "..\\..\\..\\3rdParty\\curl\\cacert.pem";
 		std::cout << "Downloading from " << url << "\n";
@@ -40,13 +39,13 @@ void Download_file(const char *url, const char *filename, bool debug = false)
 		curl_easy_setopt(handle, CURLOPT_URL, url);
 		curl_easy_setopt(handle, CURLOPT_ERRORBUFFER, errorbuf);
 		//curl_easy_setopt(handle, CURLOPT_CAINFO, cert);
+		// show progress bar
 		curl_easy_setopt(handle, CURLOPT_NOPROGRESS, 0L);
-		// curl_easy_setopt(handle, CURLOPT_VERBOSE, 1L);
 
 		// if successful, save data to patch_experts folder
 		std::ofstream output_file(filename, std::ios::binary | std::ios::out);
-		if (output_file) {
-			std::cout << "hmm\n";
+		if (output_file.is_open()) {
+
 			curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, write_data);
 			curl_easy_setopt(handle, CURLOPT_WRITEDATA, &output_file);
 			success = curl_easy_perform(handle);
@@ -55,17 +54,9 @@ void Download_file(const char *url, const char *filename, bool debug = false)
 				std::cout << errorbuf << "\n";
 			}
 
-			if (debug) {
-				std::cout << "closing file...\n";
-			}
 			output_file.close();
-		}
-
-		if (debug) {
-			std::cout << "cleaning up...\n";
 		}
 		curl_easy_cleanup(handle);
 	}
-
 	curl_global_cleanup();
 }
