@@ -32,7 +32,6 @@ void Download_file(const char *url, const char *filename)
 	if (handle) {
 		char errorbuf[CURL_ERROR_SIZE];
 
-		// char cert[] = "D:\\Yao Chong\\Documents\\School\\CMU\\Research\\Multi-modal\\CE-CLM\\lib\\3rdParty\\curl\\cacert.pem";
 		// char cert[] = "..\\..\\..\\3rdParty\\curl\\cacert.pem";
 		std::cout << "Downloading from " << url << "\n";
 
