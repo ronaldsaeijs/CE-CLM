@@ -6,8 +6,8 @@ An extension of OpenFace by Tadas Baltrusaitis with the facial landmark detector
 
 Binaries for Windows are available here:
 
-- 32-bit: (link)
-- 64-bit: (link)
+- 32-bit: (https://github.com/A2Zadeh/CE-CLM/releases/download/v0.2.3/OpenFace_CE-CLM_win32.zip)
+- 64-bit: (https://github.com/A2Zadeh/CE-CLM/releases/download/v0.2.3/OpenFace_CE-CLM_win_x64.zip)
 
 For the binaries to work you need to have Visual Studio 2015 installed or need to install the 64-bit Visual C++ redistributable package.
 
